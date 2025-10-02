@@ -1,0 +1,23 @@
+{
+  "name": "coding",
+  "version": "1.0.0",
+  "description": "This is Namaste React By Eoin Kishore",
+  "homepage": "https://github.com/EoinKishore/Namaste_React#readme",
+  "bugs": {
+    "url": "https://github.com/EoinKishore/Namaste_React/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EoinKishore/Namaste_React.git"
+  },
+  "license": "ISC",
+  "author": "Kishore C",
+  "type": "commonjs",
+  "main": "App.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "parcel": "^2.16.0"
+  }
+}
