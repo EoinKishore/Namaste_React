@@ -1,6 +1,7 @@
 import CardComponent from "./CardComponent";
 import { resArr } from "../utils/mokData";
 import { useEffect, useState } from "react";
+import ShimmerComponent from "./ShimmerComponent";
 const BodyComponent = () => {
 
     const [listOfRes,setListOfRes] = useState([
@@ -21,6 +22,10 @@ const fetchData = async () => {
   );
   const json = await data.json();
   console.log(json);
+}
+
+if(listOfRes.length === 0) {
+  return <ShimmerComponent />;
 }
 
   return (
