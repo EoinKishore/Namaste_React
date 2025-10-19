@@ -58,3 +58,11 @@
     background-color: #f0f0f0;
     margin: 15px;
 }
+
+.login-btn {
+    background-color: rgb(88, 150, 192);
+    color: black;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+}
