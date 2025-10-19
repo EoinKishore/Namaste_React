@@ -4,12 +4,9 @@ import { useEffect, useState } from "react";
 import ShimmerComponent from "./ShimmerComponent";
 const BodyComponent = () => {
 
-    const [listOfRes,setListOfRes] = useState([
-  {id:'1',name : "Biriyani", averageRating :"3.7" , costForTwo:'370', cloudinaryImageId: "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/RX_THUMBNAIL/IMAGES/VENDOR/2024/12/9/c67c80e5-4d93-4065-b2c7-5533752a9fca_964658.JPG" },
-  {id:'2',name : "burger" , averageRating :"4.8" , costForTwo :"120", cloudinaryImageId: "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/RX_THUMBNAIL/IMAGES/VENDOR/2024/12/9/c67c80e5-4d93-4065-b2c7-5533752a9fca_964658.JPG" },
-  {id:'3',name : "Dosa" , averageRating : "4.0" , costForTwo :"50", cloudinaryImageId: "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/RX_THUMBNAIL/IMAGES/VENDOR/2024/12/9/c67c80e5-4d93-4065-b2c7-5533752a9fca_964658.JPG" },
-  {id:'4',name : "Idly" , averageRating :"3.8" , costForTwo :"10", cloudinaryImageId: "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/RX_THUMBNAIL/IMAGES/VENDOR/2024/12/9/c67c80e5-4d93-4065-b2c7-5533752a9fca_964658.JPG" },
-]);
+    const [listOfRes,setListOfRes] = useState([]);
+    const [seachText , setSearchText] = useState("");
+    const [filterRes , setFilteredRes] = useState([]);
 
 useEffect(() => {
   console.log("useEffect called");
@@ -18,10 +15,12 @@ useEffect(() => {
 
 const fetchData = async () => {
   const data = await fetch(
-    "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
+    "https://pastebin.com/raw/0QcdEDBL"
   );
   const json = await data.json();
   console.log(json);
+  setListOfRes(resArr);
+  setFilteredRes(resArr);
 }
 
 if(listOfRes.length === 0) {
@@ -31,15 +30,28 @@ if(listOfRes.length === 0) {
   return (
     <div className="body">
       <div className="filter-container">
+        <div className="search-container">
+          <input type="text" placeholder="search" value={seachText} onChange={(e) => {
+            setSearchText(e.target.value);
+          }}  />
+          <button onClick={() => {
+            console.log(seachText);
+            const filteredList = listOfRes.filter((res) => {
+              return res.data.name.toLowerCase().includes(seachText.toLowerCase());
+            })
+
+            setFilteredRes(filteredList);
+          }}>Search</button>
+        </div>
         <button className="filter-btn" onClick={() => {
-            const filteredRes = listOfRes.filter((res) => res.averageRating > 4);
-            setListOfRes(filteredRes);
+            const filteredRes = listOfRes.filter((res) => res.data.avgRating > 4);
+            setFilteredRes(filteredRes);
         }}>Top Rated Foods</button>
       </div>
       <div className="res-container">
         {
-          listOfRes.map((res) => {
-            return <CardComponent key={res.id} resData={res} />
+          filterRes.map((res) => {
+            return <CardComponent key={res.data.id} resData={res} />
           })
         }
       </div>
