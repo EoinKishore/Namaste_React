@@ -15,15 +15,15 @@ useEffect(() => {
 
 const fetchData = async () => {
   const data = await fetch(
-    "https://pastebin.com/raw/0QcdEDBL"
+    "https://raw.githubusercontent.com/namastedev/namaste-react/refs/heads/main/swiggy-api"
   );
   const json = await data.json();
-  console.log(json);
-  setListOfRes(resArr);
-  setFilteredRes(resArr);
+  console.log(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+  setListOfRes(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+  setFilteredRes(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
 }
 
-if(listOfRes.length === 0) {
+if(!listOfRes || listOfRes.length === 0) {
   return <ShimmerComponent />;
 }
 
@@ -35,23 +35,23 @@ if(listOfRes.length === 0) {
             setSearchText(e.target.value);
           }}  />
           <button onClick={() => {
-            console.log(seachText);
+      
             const filteredList = listOfRes.filter((res) => {
-              return res.data.name.toLowerCase().includes(seachText.toLowerCase());
+              return res.info.name.toLowerCase().includes(seachText.toLowerCase());
             })
 
             setFilteredRes(filteredList);
           }}>Search</button>
         </div>
         <button className="filter-btn" onClick={() => {
-            const filteredRes = listOfRes.filter((res) => res.data.avgRating > 4);
+            const filteredRes = listOfRes.filter((res) => res.info.avgRating > 4);
             setFilteredRes(filteredRes);
         }}>Top Rated Foods</button>
       </div>
       <div className="res-container">
         {
           filterRes.map((res) => {
-            return <CardComponent key={res.data.id} resData={res} />
+            return <CardComponent key={res.info.id} resData={res} />
           })
         }
       </div>
