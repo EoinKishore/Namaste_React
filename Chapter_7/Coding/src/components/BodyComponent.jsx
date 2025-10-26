@@ -2,6 +2,7 @@ import CardComponent from "./CardComponent";
 import { resArr } from "../utils/mokData";
 import { useEffect, useState } from "react";
 import ShimmerComponent from "./ShimmerComponent";
+import { Link } from "react-router-dom";
 const BodyComponent = () => {
 
     const [listOfRes,setListOfRes] = useState([]);
@@ -15,7 +16,7 @@ useEffect(() => {
 
 const fetchData = async () => {
   const data = await fetch(
-    "https://raw.githubusercontent.com/namastedev/namaste-react/refs/heads/main/swiggy-api"
+    "https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.99740&lng=79.00110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
   );
   const json = await data.json();
   console.log(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
@@ -51,7 +52,11 @@ if(!listOfRes || listOfRes.length === 0) {
       <div className="res-container">
         {
           filterRes.map((res) => {
-            return <CardComponent key={res.info.id} resData={res} />
+            return (
+              <Link key={res.info.id} to={"/restaurant/" + res.info.id}>
+                <CardComponent resData={res} />
+              </Link>
+            ) 
           })
         }
       </div>
