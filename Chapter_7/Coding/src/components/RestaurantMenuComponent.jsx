@@ -4,30 +4,31 @@ import ShimmerComponent from "./ShimmerComponent";
 import { MENU_API_URL } from "../utils/constants";
 
 const RestaurantMenuComponent = () => {
-  const [restaurantMenu, setRestaurantMenu] = useState(null);
+  const [restaurantMenu, setRestaurantMenu] = useState([]);
   const { resId } = useParams();
-
+  
   useEffect(() => {
+    console.log("useEffect - RestaurantMenuComponent");
     fetchData();
-  }, [resId]);
+  }, []);
 
   const fetchData = async () => {
-    const data = await fetch(MENU_API_URL + resId);
+    const data = await fetch("https://foodfire.onrender.com/api/menu?page-type=REGULAR_MENU&complete-menu=true&lat=21.1702401&lng=72.83106070000001&submitAction=ENTER&restaurantId="+resId);
     const json = await data.json();
     console.log(json.data);
     setRestaurantMenu(json.data);
   };
-
   
+  if (!restaurantMenu || restaurantMenu?.length === 0) {
+    return <ShimmerComponent />;
+  }
+
   const { name, costForTwoMessage, avgRating, cuisines } =
   restaurantMenu?.cards[2]?.card?.card?.info;
   
   const itemCards =
-  restaurantMenu?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card?.itemCards;
+  restaurantMenu?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[4]?.card?.card?.itemCards;
   
-  if (!restaurantMenu) {
-    return <ShimmerComponent />;
-  }
   return (
     <div className="selected-food-container">
       <h1>Restaurant Name : {name}</h1>
