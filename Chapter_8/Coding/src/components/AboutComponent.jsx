@@ -5,7 +5,7 @@ const AboutComponent = () => {
     return (
         <div>
             This is about page
-            <UserComponent name={"Eoin Kishore Functional"}/>
+            {/* <UserComponent name={"Eoin Kishore Functional"}/> */}
             <UserClass name={"Eoin Kishore Class"} location={"New Zealand Class"}/>
         </div>
     )
