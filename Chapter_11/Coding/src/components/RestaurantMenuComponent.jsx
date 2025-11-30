@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import ShimmerComponent from "./ShimmerComponent";
-import useRestaurantMenu from "../utils/UseRestaurantMenu";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 const RestaurantMenuComponent = () => {
   
   const { resId } = useParams();
