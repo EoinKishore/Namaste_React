@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import ShimmerComponent from "./ShimmerComponent";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import CategoryComponent from "./CategoryComponent";
 const RestaurantMenuComponent = () => {
   
   const { resId } = useParams();
@@ -16,21 +17,19 @@ const RestaurantMenuComponent = () => {
   
   const itemCards =
   restaurantMenu?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[4]?.card?.card?.itemCards;
+
+  const allCards =  restaurantMenu?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
+
+  const categoryItems = allCards.filter(c => c?.card?.card?.categories);
   
   return (
-    <div className="flex flex-col m-4 p-4 bg-green-200 items-center justify-center">
-      <h1>Restaurant Name : {name}</h1>
-      <h3>Cuisines : {cuisines?.join(", ")}</h3>
-      <h3>Cost for two : {costForTwoMessage}</h3>
-      <h3>Average Rating : {avgRating}</h3>
-      <h2>Recommended Menu Items</h2>
-      <div className="menu-items">
-        <ul>
-          {itemCards.map((item) => (
-            <li key={item.card.info.id}>{item.card.info.name}</li>
-          ))}
-        </ul>
+    <div className="flex flex-col m-4 p-4 items-center justify-center">
+      <div className="bg-lime-950 text-amber-100 w-[500px] p-4 ">
+        <h1> <span className="!text-yellow-100"> Restaurant Name :</span> {name}</h1>
+        <h3> <span className="!text-yellow-100">Cuisines :</span>  {cuisines?.join(", ")}</h3>
+        <h3> <span className="!text-yellow-100">Cost for two :</span> {costForTwoMessage}</h3>
       </div>
+      <CategoryComponent categoryItems={categoryItems} />
     </div>
   );
 };
