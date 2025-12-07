@@ -25,9 +25,9 @@ const RestaurantMenuComponent = () => {
   return (
     <div className="flex flex-col m-4 p-4 items-center justify-center">
       <div className="bg-lime-950 text-amber-100 w-[500px] p-4 ">
-        <h1> <span className="!text-yellow-100"> Restaurant Name :</span> {name}</h1>
-        <h3> <span className="!text-yellow-100">Cuisines :</span>  {cuisines?.join(", ")}</h3>
-        <h3> <span className="!text-yellow-100">Cost for two :</span> {costForTwoMessage}</h3>
+        <h1> <span> Restaurant Name :</span> {name}</h1>
+        <h3> <span>Cuisines :</span>  {cuisines?.join(", ")}</h3>
+        <h3> <span>Cost for two :</span> {costForTwoMessage}</h3>
       </div>
       <CategoryComponent categoryItems={categoryItems} />
     </div>
