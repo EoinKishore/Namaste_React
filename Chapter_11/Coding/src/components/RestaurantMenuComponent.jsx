@@ -2,21 +2,20 @@ import { useParams } from "react-router-dom";
 import ShimmerComponent from "./ShimmerComponent";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import CategoryComponent from "./CategoryComponent";
+import { useState } from "react";
 const RestaurantMenuComponent = () => {
   
   const { resId } = useParams();
   const restaurantMenu = useRestaurantMenu(resId);
+  const [showItem , setShowItem] = useState(null);
 
   
   if (!restaurantMenu || restaurantMenu?.length === 0) {
     return <ShimmerComponent />;
   }
 
-  const { name, costForTwoMessage, avgRating, cuisines } =
+  const { name, costForTwoMessage, cuisines } =
   restaurantMenu?.cards[2]?.card?.card?.info;
-  
-  const itemCards =
-  restaurantMenu?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[4]?.card?.card?.itemCards;
 
   const allCards =  restaurantMenu?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
 
@@ -29,7 +28,17 @@ const RestaurantMenuComponent = () => {
         <h3> <span>Cuisines :</span>  {cuisines?.join(", ")}</h3>
         <h3> <span>Cost for two :</span> {costForTwoMessage}</h3>
       </div>
-      <CategoryComponent categoryItems={categoryItems} />
+      {categoryItems.map((item, index) => {
+        return <CategoryComponent categoryItems={item} showItem={index === showItem ? true : false} setShowItem={() => {
+          if (showItem === index) {
+            setShowItem(null);
+          }
+          else {
+            setShowItem(index);
+          }
+        }} key={item.card.card.categoryId} />
+      })}
+      
     </div>
   );
 };

@@ -1,23 +1,20 @@
 import CategoryItems from "./CategoryItems";
-import React from "react";
 import { useState } from "react";
-const CategoryComponent = ({categoryItems}) => {
-    const [isAccordianOpen , setIsAccordianOpen] = useState(false);
-
+const CategoryComponent = ({categoryItems,showItem,setShowItem }) => {
+   
+    const handleClick = () => {
+        setShowItem();
+    }
     return (
         <div className="category-container w-[500px]">
-            {categoryItems.map((c) => {
-                return (
-                <div key={c.card.card.categoryId} >
-                    <div className="flex bg-gray-200 justify-between p-4 m-4 rounded-lg cursor-pointer" onClick={() => setIsAccordianOpen(!isAccordianOpen)}>
-                        <h4>{c.card.card.title}</h4>
+                <div key={categoryItems.card.card.categoryId} >
+                    <div className="flex bg-gray-200 justify-between p-4 m-4 rounded-lg cursor-pointer" onClick={handleClick}>
+                        <h4>{categoryItems.card.card.title}</h4>
                         <span>⬇️</span>
                     </div>
-                    {isAccordianOpen && c.card.card.categories &&
-                    <CategoryItems categoryItems={c.card.card.categories} /> }
+                    {showItem && categoryItems.card.card.categories &&
+                    <CategoryItems categoryItems={categoryItems.card.card.categories} /> }
                 </div>
-                )
-            })}
         </div>   
     )
 }
