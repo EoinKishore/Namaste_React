@@ -6,8 +6,9 @@ const CategoryItems = ({ categoryItems }) => {
 
     return <div className="w-full">
         {allItemCards.map((item) => {
-            return <div className="flex border border-grey-300 p-4 m-2 w-full bg-gray-100 rounded-2xl" key={item?.card?.info?.id}>
-                <div className="flex items-center w-[200px]">
+            return <div className="flex  p-4 m-2 w-full bg-gray-200 rounded-2xl" key={item?.card?.info?.id}>
+                <div className="flex items-center w-[200px] p-3">
+                    <button className="bg-black text-white rounded-2xl ">Add</button>
                     <img src={ CDN_URL + item?.card?.info?.imageId} alt="" className="h-[100px] w-[100px] rounded" />
                 </div>
                 <div className="ml-3">
